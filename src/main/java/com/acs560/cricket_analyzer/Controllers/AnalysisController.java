@@ -31,6 +31,27 @@ public class AnalysisController {
 	public double getAverageStrikeRate(@PathVariable String team) {
 		return analysisServices.calculateAverageStrikeRate(team);
 	}
+	
+	@GetMapping("/average/NotOuts/{team}")
+	public double getAverageNotOuts(@PathVariable String team) {
+		return analysisServices.calculateAverageNotOuts(team );
+	}
+	
+	@GetMapping("/average/Innings/{team}")
+	public double getAverageInningsbyTeam(@PathVariable String team) {
+		return analysisServices.calculateAverageInningsbyTeam(team );
+	}
+	
+	@GetMapping("/average/Matches/{team}")
+	public double getAverageMatchesbyTeam(@PathVariable String team) {
+		return analysisServices.calculateAverageMatchesbyTeam(team );
+	}
+	
+//	@GetMapping("/average/Compare/{team1}/{team2}")
+//	public String getCompareRuns(@PathVariable String team1, @PathVariable String team2) {
+//		return analysisServices.CompareRuns(team1, team2 );
+//	}
+	
 }
 
 

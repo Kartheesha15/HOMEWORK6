@@ -1,6 +1,7 @@
 package com.acs560.cricket_analyzer.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class PlayerController {
 	
 	
 	@GetMapping("/{name}/{team}")
-	public ResponseEntity<List<Player>> getPlayers(@PathVariable String name,
+	public ResponseEntity<Optional<Player>> getPlayers(@PathVariable String name,
 			@PathVariable String team){
 		return ResponseEntity.ok(playerServices.getPlayers(name, team));
 	}

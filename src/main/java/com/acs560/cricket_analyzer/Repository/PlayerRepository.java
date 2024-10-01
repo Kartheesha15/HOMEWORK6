@@ -7,9 +7,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
+import org.springframework.data.repository.CrudRepository;
+
 import com.acs560.cricket_analyzer.Exception.PlayerRepositoryManagementException;
+import com.acs560.cricket_analyzer.entities.PlayerEntity;
+import com.acs560.cricket_analyzer.entities.PlayerEntityId;
 import com.acs560.cricket_analyzer.model.Player;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -21,7 +26,26 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.exceptions.CsvValidationException;
 
-public class PlayerRepository {
+public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEntityId> {
+
+	List<PlayerEntity> findAllByIdName(String name);
+	
+	List<PlayerEntity> findAllByIdrunsAndIdTeam(String team , String name);
+
+
+	
+//	List<PlayerEntity> findAllByIdname(String name);
+	
+	List<PlayerEntity> findAllByIdTeam(String team);
+	
+	List<PlayerEntity> findAllByIdNameAndIdRuns(String name, Set<Integer> runs);
+
+	List<PlayerEntity> findAllByIdMatches(int matches);
+
+}
+
+
+/*public class PlayerRepository {
 
     private static List<Player> players;
 
@@ -69,7 +93,8 @@ public static void addPlayer(Player player) {
 /*	if(player.contains(player)) {
 		throw new IllegalArgumentException("player already exists");
 	}
-	*/
+
+	
 	if(savePlayer(player)) {
 		players.add(player);
 	}else {
@@ -167,7 +192,7 @@ private static boolean savePlayers() {
 }
 
 
-
+*/
 
 
 
