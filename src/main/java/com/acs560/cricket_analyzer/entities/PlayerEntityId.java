@@ -26,9 +26,10 @@ public class PlayerEntityId implements Serializable {
 //	private int runs;
 //	private double average;
 //	private double strikeRate;
-	 public PlayerEntityId(String name, String team) {
+/*	 public PlayerEntityId(String name, String team) {
 	        this.name = name;
 	        this.team = team;
 	    }
+*/	
  
 }

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class PlayerController {
 
 	
-	@Autowired
+//	@Autowired
 	private PlayerServices playerServices;
 	
 	
@@ -38,7 +38,7 @@ public class PlayerController {
 		
 		return ResponseEntity.ok(playerSevices.getPlayers());
 	}
-*/	
+*/
 	
 	@GetMapping
 	public ResponseEntity<List<Player>> getPlayers() {
@@ -80,3 +80,4 @@ public class PlayerController {
 		return ResponseEntity.ok().build();
 	}
 }
+

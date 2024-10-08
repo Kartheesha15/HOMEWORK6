@@ -1,3 +1,5 @@
+
+
 package com.acs560.cricket_analyzer.Services.Impl;
 
 import java.util.Comparator;
@@ -11,9 +13,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.acs560.cricket_analyzer.Repository.PlayerRepository;
 import com.acs560.cricket_analyzer.Services.PlayerServices;
 import com.acs560.cricket_analyzer.entities.PlayerEntity;
@@ -22,7 +21,7 @@ import com.acs560.cricket_analyzer.model.Player;
 @Service
 public class PlayerServiceImpl implements PlayerServices {
 
-	@Autowired
+//	@Autowired
 	PlayerRepository br;
 
 	@Override
@@ -83,11 +82,11 @@ PlayerEntity playerToUpdate = new PlayerEntity(player);
 		
 	}
 
-	@Override
+/*	@Override
 	public List<Player> getPlayers(int matches) {
-		var playerEntities = br.findAllByIdMatches(matches);
+		var playerEntities = br.findAllByMatches(matches);
 		return from(playerEntities);
-	}
+	}*/
 	private List<Player> from(List<PlayerEntity> playerEntities){
 		var players = playerEntities.stream()
 				.map(be -> new Player(be))

@@ -1,3 +1,75 @@
+
+/*import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.acs560.cricket_analyzer.model.Player;
+import com.opencsv.CSVReader;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvToBean;
+
+public class PlayerRepository {
+
+    private static List<Player> players;
+
+    public static List<Player> getPlayers() {
+        if (players == null) {
+            players = initializePlayers();
+        }
+        return players;
+    }
+
+    private static List<Player> initializePlayers() {
+    	CSVReader reader;
+  //      List<Player> players = new ArrayList<>();
+        try {
+        	reader = new CSVReader(new FileReader("batting_stats.csv"));
+            ColumnPositionMappingStrategy<Player> beanStrategy = new ColumnPositionMappingStrategy<Player>();
+            beanStrategy.setType(Player.class);
+            beanStrategy.setColumnMapping(new String[]{"name", "team", "matches", "innings", "notouts", "runs", "average", "strike_rate"});
+
+            CsvToBean<Player> csvToBean = new CsvToBean<Player>();
+            csvToBean.setCsvReader(reader);
+            csvToBean.setMappingStrategy(beanStrategy);
+
+            players = csvToBean.parse();
+        } catch (IOException e) {
+            System.err.println("Error reading CSV file: " + e.getMessage());
+        }
+        return players;
+    }
+
+    public Player getPlayerByName(String name) {
+        for (Player player : players) {
+            if (player.getName().equals(name)) {
+                return player;
+            }
+        }
+        return null;
+    }
+    
+ 
+    public List<Player> getPlayersByTeam(String team) {
+        List<Player> teamPlayers = new ArrayList<>();
+        for (Player player : players) {
+            if (player.getTeam().equals(team)) {
+                teamPlayers.add(player);
+            }
+        }
+        return teamPlayers;
+    }
+
+	public double getRuns() {
+		
+		return 0;
+	}
+
+    }
+    
+*/
+
 package com.acs560.cricket_analyzer.Repository;
 
 
@@ -30,17 +102,19 @@ public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEnt
 
 	List<PlayerEntity> findAllByIdName(String name);
 	
-	List<PlayerEntity> findAllByIdrunsAndIdTeam(String team , String name);
-
+	List<PlayerEntity> findAllByIdTeamAndIdName(String team , String name);
+//implementation
+	//PlayerEntityid id = new PlayerEntityId(team, name);
+	//playerRepository.findByid(id);
 
 	
 //	List<PlayerEntity> findAllByIdname(String name);
 	
 	List<PlayerEntity> findAllByIdTeam(String team);
 	
-	List<PlayerEntity> findAllByIdNameAndIdRuns(String name, Set<Integer> runs);
+//	List<PlayerEntity> findAllByIdNameAndIdRuns(String name, Set<Integer> runs);
 
-	List<PlayerEntity> findAllByIdMatches(int matches);
+//	List<PlayerEntity> findAllByMatches(int matches);
 
 }
 

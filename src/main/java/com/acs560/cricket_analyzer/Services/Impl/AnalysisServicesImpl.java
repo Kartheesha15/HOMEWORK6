@@ -1,3 +1,5 @@
+
+
 package com.acs560.cricket_analyzer.Services.Impl;
 
 import java.util.List;
@@ -16,38 +18,38 @@ import com.acs560.cricket_analyzer.model.Player;
 @Service
 public class AnalysisServicesImpl implements AnalysisServices {
 
-	@Autowired
-	PlayerServices bs;
+//	@Autowired
+	PlayerServices playerServices;
 	
 
 	@Override
 	public double calculateAverageRuns(String team) {
-		List<Player> players = bs.getPlayers(team);
+		List<Player> players = playerServices.getPlayers(team);
 		return getAverageRuns(players);
 
 	}
 
 	@Override
 	public double calculateAverageStrikeRate(String team) {
-		List<Player> players = bs.getPlayers(team);
+		List<Player> players = playerServices.getPlayers(team);
 		return getAverageStrikeRate(players);
 	}
 
 	@Override
 	public double calculateAverageNotOuts(String team) {
-		List<Player> players = bs.getPlayers(team);
+		List<Player> players = playerServices.getPlayers(team);
 		return getAverageNotOuts(players);
 	}
 
 	@Override
 	public double calculateAverageInningsbyTeam(String team) {
-		List<Player> players = bs.getPlayers(team);
+		List<Player> players = playerServices.getPlayers(team);
 		return getAverageInnings(players);
 	}
 
 	@Override
 	public double calculateAverageMatchesbyTeam(String team) {
-		List<Player> players = bs.getPlayers(team);
+		List<Player> players = playerServices.getPlayers(team);
 		return getAverageMatches(players);
 	}
 
@@ -63,7 +65,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
 	private double getAverageStrikeRate(List<Player> players) {
 		double average = players
 				.stream()
-				.mapToDouble(Player::getStrikerate)
+				.mapToDouble(Player::getStrikeRate)
 				.average()
 				.orElseThrow();
 		return average;
@@ -72,7 +74,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
 	private double getAverageNotOuts(List<Player> players) {
 		double average = players
 				.stream()
-				.mapToDouble(Player::getNotOuts)
+				.mapToDouble(Player::getNotouts)
 				.average()
 				.orElseThrow();
 		return average;
@@ -93,11 +95,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
 				.orElseThrow();
 		return average;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 	

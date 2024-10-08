@@ -40,26 +40,17 @@ public class Player {
 		return runs == other.runs && average == other.average &&
 				Objects.equals(name, other.name);
 	}
-	public Player(String name,String team,int matches,int innings,int notouts, int runs, double average,double strikeRate) {
-		this.name = name;
-		this.team = team;
-		this.matches = matches;
-		this.innings = innings;
-		this.notouts = notouts;
-		this.runs = runs;
-		this.average = average;
-		this.strikeRate = strikeRate;
-	}
+
 	
 	public Player(PlayerEntity be) {
-		this(be.getId(),
-				be.getId().getTeams(),
-				be.getId().getMatches(),
-				be.getId().getInnings(),
-				be.getId().getNotouts(),
+		this(be.getId().getName(),
+				be.getId().getTeam(),
+				be.getMatches(),
+				be.getInnings(),
+				be.getNotouts(),
 				be.getRuns(),
-				be.getId().getAverage(),
-				be.getId().getStrikeRate());
+				be.getAverage(),
+				be.getStrikeRate());
 	}
 
 

@@ -1,3 +1,5 @@
+
+
 package com.acs560.cricket_analyzer.Services;
 import com.acs560.cricket_analyzer.model.Player ;
 import java.util.List;
@@ -18,7 +20,7 @@ public interface PlayerServices {
 	void delete(Player player);
 	void update(Player player);
 	
-	List<Player> getPlayers(int matches);
+//	List<Player> getPlayers(int matches);
 	
 //	List<Player> getPlayers(int month, int range);
 
