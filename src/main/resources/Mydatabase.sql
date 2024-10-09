@@ -1,13 +1,13 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "playersdata" (
-	"Player Name"	TEXT,
-	"Team"	TEXT,
-	"Mat"	INTEGER,
-	"Inns"	INTEGER,
-	"NO"	INTEGER,
-	"Runs"	INTEGER,
-	"Ave"	REAL,
-	"SR"	REAL
+	"Player Name"	TEXT NOT NULL,
+	"Team"	TEXT NOT NULL,
+	"Mat"	INTEGER NOT NULL,
+	"Inns"	INTEGER NOT NULL,
+	"NO"	INTEGER NOT NULL,
+	"Runs"	INTEGER NOT NULL,
+	"Ave"	REAL NOT NULL ,
+	"SR"	REAL NOT NULL
 );
 INSERT INTO "playersdata" VALUES ('Aaron Jones','United States of America',6,6,2,162,40.5,135);
 INSERT INTO "playersdata" VALUES ('Aasif Sheikh','Nepal',3,3,0,63,21.0,88.73);

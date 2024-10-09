@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity()
-@Table(name = "players")  // Updated to reflect "players" table
+@Table(name = "playersdata")  // Updated to reflect "players" table
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
