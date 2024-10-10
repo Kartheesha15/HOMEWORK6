@@ -26,7 +26,7 @@ public class PlayerEntity {
     private int notouts;
     private int runs;
     private double average;
-    private double strikeRate;
+    private double strikerate;
 
     // Getter for ID
     public PlayerEntityId getId() {
@@ -41,7 +41,7 @@ public class PlayerEntity {
         this.notouts = player.getNotouts();
         this.runs = player.getRuns();
         this.average = player.getAverage();
-        this.strikeRate = player.getStrikeRate();
+        this.strikerate = player.getStrikeRate();
     }
 }
 

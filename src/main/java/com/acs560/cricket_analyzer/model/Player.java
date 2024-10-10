@@ -50,7 +50,7 @@ public class Player {
 				be.getNotouts(),
 				be.getRuns(),
 				be.getAverage(),
-				be.getStrikeRate());
+				be.getStrikerate());
 	}
 
 
