@@ -19,7 +19,8 @@ public class PlayerEntityId implements Serializable {
 
 	private static final long serialVersionUID = 7252327203288421943L;
     private String name;
-	private String team;
+//	private String team;
+	private int countryId;
 //	private int matches;
 //	private int innings;
 //  private int notouts;

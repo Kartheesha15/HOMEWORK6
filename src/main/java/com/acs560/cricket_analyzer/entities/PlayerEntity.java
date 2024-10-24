@@ -4,6 +4,8 @@ package com.acs560.cricket_analyzer.entities;
 import com.acs560.cricket_analyzer.model.Player;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +22,9 @@ public class PlayerEntity {
 
     @EmbeddedId
     private PlayerEntityId id;
+    @ManyToOne
+    @MapsId("countryId")
+    private CountryEntity country;
 
     private int matches;
     private int innings;
@@ -35,13 +40,22 @@ public class PlayerEntity {
 
     // Constructor to map from Player model to PlayerEntity
     public PlayerEntity(Player player) {
-        this.id = new PlayerEntityId(player.getName(), player.getTeam());
-        this.matches = player.getMatches();
+        this(new PlayerEntityId(player.getName(), 
+        		player.getCountry().getId()),
+        		new CountryEntity(player.getCountry()),
+        		player.getMatches(),
+        		player.getInnings(),
+        		player.getNotouts(),
+        		player.getRuns(),
+        		player.getAverage(),
+        		player.getStrikeRate());
+/*        this.matches = player.getMatches();
         this.innings = player.getInnings();
         this.notouts = player.getNotouts();
         this.runs = player.getRuns();
         this.average = player.getAverage();
         this.strikerate = player.getStrikeRate();
+        */
     }
 }
 

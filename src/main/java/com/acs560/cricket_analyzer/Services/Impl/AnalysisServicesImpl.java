@@ -3,6 +3,7 @@
 package com.acs560.cricket_analyzer.Services.Impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,82 +20,39 @@ import com.acs560.cricket_analyzer.model.Player;
 public class AnalysisServicesImpl implements AnalysisServices {
 
 //	@Autowired
-	PlayerServices playerServices;
+	private PlayerRepository br;
+	
+	@Autowired
+	public AnalysisServicesImpl(PlayerRepository br) {
+		this.br = br;
+	}
+
 	
 
 	@Override
-	public double calculateAverageRuns(String team) {
-		List<Player> players = playerServices.getPlayers(team);
-		return getAverageRuns(players);
-
-	}
-
-	@Override
-	public double calculateAverageStrikeRate(String team) {
-		List<Player> players = playerServices.getPlayers(team);
-		return getAverageStrikeRate(players);
-	}
-
-	@Override
-	public double calculateAverageNotOuts(String team) {
-		List<Player> players = playerServices.getPlayers(team);
-		return getAverageNotOuts(players);
-	}
-
-	@Override
-	public double calculateAverageInningsbyTeam(String team) {
-		List<Player> players = playerServices.getPlayers(team);
-		return getAverageInnings(players);
-	}
-
-	@Override
-	public double calculateAverageMatchesbyTeam(String team) {
-		List<Player> players = playerServices.getPlayers(team);
-		return getAverageMatches(players);
-	}
-
-	private double getAverageRuns(List<Player> players) {
-		double average = players
-				.stream()
-				.mapToDouble(Player::getRuns)
-				.average()
-				.orElseThrow();
+	public double calculateAverage(int matches)  {
+		var average = br.calculateAverage(matches);
+		
+		if (average == null) {
+			throw new NoSuchElementException("No such players exist");
+		}
+		
 		return average;
-	}
 
-	private double getAverageStrikeRate(List<Player> players) {
-		double average = players
-				.stream()
-				.mapToDouble(Player::getStrikeRate)
-				.average()
-				.orElseThrow();
-		return average;
 	}
 	
-	private double getAverageNotOuts(List<Player> players) {
-		double average = players
-				.stream()
-				.mapToDouble(Player::getNotouts)
-				.average()
-				.orElseThrow();
+	public double calculateAverageRuns(int matches, int companyId) {
+		var average = br.calculateAverage(matches, companyId);
+		
+		if (average == null) {
+			throw new NoSuchElementException("No such players exist");
+		}
+		
 		return average;
 	}
-	private double getAverageInnings(List<Player> players) {
-		double average = players
-				.stream()
-				.mapToDouble(Player::getInnings)
-				.average()
-				.orElseThrow();
-		return average;
-	}
-	private double getAverageMatches(List<Player> players) {
-		double average = players
-				.stream()
-				.mapToDouble(Player::getMatches)
-				.average()
-				.orElseThrow();
-		return average;
-	}
+
+}
+
 
 	
 	
@@ -162,4 +120,4 @@ public class AnalysisServicesImpl implements AnalysisServices {
 
 
 
-}
+

@@ -23,16 +23,17 @@ import jakarta.validation.Valid;
 @RestController()
 @RequestMapping("/api/v1/countries")
 public class CountriesController {
-private CountriesService cs;
+//@Autowired
+	private CountriesService cs;
 	
-//	@Autowired
+	@Autowired
 	public CountriesController(CountriesService cs) {
 		this.cs = cs;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Country>> getCompanies(){
-		return ResponseEntity.ok(cs.getCompanies());
+	public ResponseEntity<List<Country>> getCountries(){
+		return ResponseEntity.ok(cs.getCountries());
 	}
 	
 	@GetMapping("/{id}")

@@ -82,6 +82,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.acs560.cricket_analyzer.Exception.PlayerRepositoryManagementException;
@@ -100,17 +101,31 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEntityId> {
 
-	List<PlayerEntity> findAllByIdName(String name);
+	List<PlayerEntity> findAllByIdCountryId(int countryId);
 	
-	List<PlayerEntity> findAllByIdTeamAndIdName(String team , String name);
-//implementation
-	//PlayerEntityid id = new PlayerEntityId(team, name);
-	//playerRepository.findByid(id);
+	List<PlayerEntity> findAllByIdCountryIdAndNotouts(int countryId,int notouts);
+	
+//	List<PlayerEntity> findAllByIdTeam(String team);
+	@Query(value = """
+			SELECT AVG(runs) FROM players WHERE matches = ?8
+			""", nativeQuery=true)
+	Double calculateAverage(int matches);
+	
+	@Query(value = """
+			SELECT AVG(runs) FROM players WHERE matches = ?8 AND country_id = ?2
+			""", nativeQuery=true)
+	Double calculateAverage(int matches, int countryId);
+	
+	@Query(value = """
+			SELECT AVG(runs) FROM players WHERE matches in ?8
+			""", nativeQuery=true)
+	Double calculateAverage(Set<Integer> matches);
+	
+	@Query(value = """
+			SELECT AVG(runs) FROM players WHERE matches in ?8 AND country_id = ?2
+			""", nativeQuery=true)
+	Double calculateAverage(Set<Integer> matches, int countryId);
 
-	
-//	List<PlayerEntity> findAllByIdname(String name);
-	
-	List<PlayerEntity> findAllByIdTeam(String team);
 	
 //	List<PlayerEntity> findAllByIdNameAndIdRuns(String name, Set<Integer> runs);
 

@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AnalysisServices {
 	
-	double calculateAverageRuns(String team);
+	double calculateAverage(int matches);
 	
-	double calculateAverageStrikeRate(String team);
+	double calculateAverageRuns(int matches, int companyId);
+	
+//	double calculateAverageStrikeRate(int companyId);
 
-	double calculateAverageNotOuts(String team);
+//	double calculateAverageNotOuts(int companyId);
 	
-	double calculateAverageInningsbyTeam(String team);
+//	double calculateAverageInningsbyTeam(int companyId);
 	
-	double calculateAverageMatchesbyTeam(String team);
+//	double calculateAverageMatchesbyTeam(int companyId);
+	
+	
 	
 //	String CompareRuns(String team1, String team2);
 

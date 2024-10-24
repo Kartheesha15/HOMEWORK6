@@ -13,20 +13,29 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import com.acs560.cricket_analyzer.Repository.PlayerRepository;
 import com.acs560.cricket_analyzer.Services.PlayerServices;
 import com.acs560.cricket_analyzer.entities.PlayerEntity;
 import com.acs560.cricket_analyzer.entities.PlayerEntityId;
 import com.acs560.cricket_analyzer.model.Player;
+
+import jakarta.validation.Valid;
 @Service
 public class PlayerServiceImpl implements PlayerServices {
 
 //	@Autowired
-	PlayerRepository br;
+	private PlayerRepository br;
+	
+	@Autowired
+	public PlayerServiceImpl(PlayerRepository br) {
+		this.br = br;
+	}
 
 	@Override
-	public Optional<Player> getPlayers(String name, String team) {
-		PlayerEntityId id = new PlayerEntityId(name, team);
+	public Optional<Player> getPlayers(String name, int companyId) {
+		PlayerEntityId id = new PlayerEntityId(name, companyId);
 		var be = br.findById(id);
 		Optional<Player> result = be.isPresent() ? Optional.of(new Player(be.get())) : Optional.empty(); 
 		
@@ -40,53 +49,58 @@ public class PlayerServiceImpl implements PlayerServices {
 	}
 
 	@Override
-	public List<Player> getPlayers(String name) {
-		var playerEntities = br.findAllByIdName(name);
+	public List<Player> getPlayersByCountry(int countryId) {
+		var playerEntities = br.findAllByIdCountryId(countryId);
+		return from(playerEntities);
+	}
+	
+	@Override
+	public List<Player> getPlayersByCountryAndNotouts(int countryId, int notouts) {
+		var playerEntities = br.findAllByIdCountryIdAndNotouts(countryId, notouts);
 		return from(playerEntities);
 	}
 
-	@Override
-	public void add(Player player) {
-PlayerEntity playerToAdd = new PlayerEntity(player);
-		
-		if (exists(playerToAdd)) {
-			throw new IllegalArgumentException("Player already exists");
-		}
-		
-		br.save(playerToAdd);
 
+	@Override
+	public Player add(@Valid Player player) {
+		Player addedPlayer = null;
 		
+		PlayerEntity playerToAdd = new PlayerEntity(player);
+		
+		if (!br.existsById(playerToAdd.getId())) {
+			var playerEntity = br.save(playerToAdd);
+			addedPlayer = new Player(playerEntity);
+		}
+
+		return addedPlayer;
 	}
 
 	@Override
-	public void delete(Player player) {
+	public boolean delete(@Valid Player player) {
+		boolean isDeleted = false;
 		PlayerEntity playerToDelete = new PlayerEntity(player);
 		
-		if (!exists(playerToDelete)) {
-			throw new NoSuchElementException("Player does not exist");
+		if (br.existsById(playerToDelete.getId())) {
+			br.delete(new PlayerEntity(player));
+			isDeleted = true;
 		}
-		
-		br.delete(new PlayerEntity(player));
-		
+		return isDeleted;
 	}
 
 	@Override
-	public void update(Player player) {
-PlayerEntity playerToUpdate = new PlayerEntity(player);
+	public Player update(@Valid Player player) {
+		Player updatedPlayer = null;
 		
-		if (!exists(playerToUpdate)) {
-			throw new NoSuchElementException("Player does not exist");
+		PlayerEntity playerToUpdate = new PlayerEntity(player);
+		
+		if (br.existsById(playerToUpdate.getId())) {
+			var updatedPlayerEntity = br.save(new PlayerEntity(player));
+			updatedPlayer = new Player(updatedPlayerEntity);
 		}
-		
-		br.save(new PlayerEntity(player));
-		
+
+		return updatedPlayer;
 	}
 
-/*	@Override
-	public List<Player> getPlayers(int matches) {
-		var playerEntities = br.findAllByMatches(matches);
-		return from(playerEntities);
-	}*/
 	private List<Player> from(List<PlayerEntity> playerEntities){
 		var players = playerEntities.stream()
 				.map(be -> new Player(be))
@@ -96,15 +110,15 @@ PlayerEntity playerToUpdate = new PlayerEntity(player);
 			throw new NoSuchElementException();
 		}
 		
-		players.sort(Comparator.comparing(Player::getName)
-				.thenComparing(Player::getTeam)
-				.thenComparing(Player::getRuns));
+		Collections.sort(players);
+		
 		return players;
 	}
-	
-	private boolean exists(PlayerEntity be) {
-		return br.existsById(be.getId());
-	}
+
+
+
+
+
 
 	
 	

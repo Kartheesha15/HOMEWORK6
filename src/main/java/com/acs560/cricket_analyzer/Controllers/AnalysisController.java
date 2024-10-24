@@ -119,39 +119,27 @@ import lombok.NoArgsConstructor;
 
 @RestController()
 @RequestMapping("/api/v1/analysis")
-@NoArgsConstructor
+//@NoArgsConstructor
 public class AnalysisController {
 	
 //	@Autowired
 	private AnalysisServices analysisServices;
+	@Autowired
 	public AnalysisController(AnalysisServices analysisServices) {
 		this.analysisServices = analysisServices;
 	}
 
-	@GetMapping("/average/runs/{team}")
-	public double getAverageRuns(@PathVariable String team) {
-		return analysisServices.calculateAverageRuns(team );
+	@GetMapping("/average/runs/{matches}")
+	public double getAverage(@PathVariable int matches) {
+		return analysisServices.calculateAverage(matches );
 	}
 	
-	@GetMapping("/average/strikeRate/{team}")
-	public double getAverageStrikeRate(@PathVariable String team) {
-		return analysisServices.calculateAverageStrikeRate(team);
+	@GetMapping("/average/{matches}/{id}")
+	public double getAverageStrikeRate(@PathVariable int matches, @PathVariable int companyId) {
+		return analysisServices.calculateAverageRuns(matches, companyId);
 	}
 	
-	@GetMapping("/average/NotOuts/{team}")
-	public double getAverageNotOuts(@PathVariable String team) {
-		return analysisServices.calculateAverageNotOuts(team );
-	}
-	
-	@GetMapping("/average/Innings/{team}")
-	public double getAverageInningsbyTeam(@PathVariable String team) {
-		return analysisServices.calculateAverageInningsbyTeam(team );
-	}
-	
-	@GetMapping("/average/Matches/{team}")
-	public double getAverageMatchesbyTeam(@PathVariable String team) {
-		return analysisServices.calculateAverageMatchesbyTeam(team );
-	}
+
 	
 //	@GetMapping("/average/Compare/{team1}/{team2}")
 //	public String getCompareRuns(@PathVariable String team1, @PathVariable String team2) {

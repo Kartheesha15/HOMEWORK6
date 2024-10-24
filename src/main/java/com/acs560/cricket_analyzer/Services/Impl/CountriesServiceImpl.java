@@ -13,21 +13,22 @@ import com.acs560.cricket_analyzer.entities.CountryEntity;
 import com.acs560.cricket_analyzer.model.Country;
 import com.acs560.cricket_analyzer.requests.CountryRequest;
 
+@Service
 public class CountriesServiceImpl implements CountriesService {
 private CountriesRepository cr;
 	
-//	@Autowired
+	@Autowired
 	public CountriesServiceImpl(CountriesRepository cr) {
 		this.cr = cr;
 	}
 
 	@Override
-	public List<Country> getCompanies() {
-		var companyEntities = cr.findAll();
-		List<Country> companies = new ArrayList<>();
-		companyEntities.forEach(ce -> companies.add(new Country(ce)));
+	public List<Country> getCountries() {
+		var countryEntities = cr.findAll();
+		List<Country> countries = new ArrayList<>();
+		countryEntities.forEach(ce -> countries.add(new Country(ce)));
 		
-		return companies;
+		return countries;
 	}
 
 	@Override

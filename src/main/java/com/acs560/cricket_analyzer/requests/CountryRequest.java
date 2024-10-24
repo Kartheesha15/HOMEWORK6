@@ -2,6 +2,7 @@ package com.acs560.cricket_analyzer.requests;
 
 
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @ToString
 public class CountryRequest {
 
-//	@NotEmpty(message="Country is required")
+	@NotEmpty(message="Country is required")
 	private String team;
 }
 

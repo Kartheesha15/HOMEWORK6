@@ -22,40 +22,45 @@ import lombok.NoArgsConstructor;
 
 @RestController()
 @RequestMapping("/api/v1/players")
-@NoArgsConstructor
+//@NoArgsConstructor
 public class PlayerController {
 
 	
 //	@Autowired
 	private PlayerServices playerServices;
 	
-	
-/*	@GetMapping("/{name}/{team}")
-	public ResponseEntity<Player> getPlayer(@PathVariable String name,
-			@PathVariable String team ) {
-		
-		Player player = playerServices.getPlayers(name, team);
-		
-		return ResponseEntity.ok(playerSevices.getPlayers());
+
+	@Autowired
+	public PlayerController(PlayerServices playerServices) {
+		this.playerServices = playerServices;
 	}
-*/
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Player>> getPlayers() {
 		return ResponseEntity.ok(playerServices.getPlayers());
 	}
 	
-	
-	@GetMapping("/{name}")
-	public ResponseEntity<List<Player>> getPlayers(@PathVariable String name){
-		return ResponseEntity.ok(playerServices.getPlayers(name));
+	@GetMapping("/{name}/{id}")
+	public ResponseEntity<Player> getPlayer(@PathVariable String name ,@PathVariable int countryId) {
+		
+		Optional<Player> player = playerServices.getPlayers(name, countryId);
+		
+		ResponseEntity<Player> response =
+				player.isPresent() ? ResponseEntity.ok(player.get()) : ResponseEntity.notFound().build();
+		
+		return response;
 	}
 	
 	
-	@GetMapping("/{name}/{team}")
-	public ResponseEntity<Optional<Player>> getPlayers(@PathVariable String name,
-			@PathVariable String team){
-		return ResponseEntity.ok(playerServices.getPlayers(name, team));
+	@GetMapping("/{id}")
+	public ResponseEntity<List<Player>> getPlayersByCountry(@PathVariable int countryId){
+		return ResponseEntity.ok(playerServices.getPlayersByCountry(countryId));
+	}
+	
+	@GetMapping("/{id}/{notouts}")
+	public ResponseEntity<List<Player>> getPlayersByCountryAndNotouts(@PathVariable int countryId ,@PathVariable int notouts){
+		return ResponseEntity.ok(playerServices.getPlayersByCountryAndNotouts(countryId, notouts));
 	}
 	
 
@@ -65,6 +70,8 @@ public class PlayerController {
 		
 		return ResponseEntity.created(null).build();
 	}
+	
+	
 	
 	@PutMapping()
 	public ResponseEntity<Player> update(@RequestBody Player player){
