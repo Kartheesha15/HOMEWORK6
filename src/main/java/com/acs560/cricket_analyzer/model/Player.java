@@ -1,12 +1,9 @@
 package com.acs560.cricket_analyzer.model;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 import com.acs560.cricket_analyzer.entities.PlayerEntity;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,21 +14,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Player implements Comparable<Player> {
-//	private String name;
-//	private String team;
-//	private int matches;
-//	private int innings;
-//	private int notouts;
-//	private int runs;
-//	private double average;
-//	private double strikeRate;
+public class Player {
+
 	
 	@NotNull(message="Name is required")
 	private String name;
 	
 	@NotNull(message="Country is required")
-	private Country country;
+	private Long countryId;
 	
 //	@NotNull(message="Team is required")
 //	private String team;
@@ -52,8 +42,11 @@ public class Player implements Comparable<Player> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name,country,matches, innings, notouts, runs, average );
+		return Objects.hash(name,countryId,matches, innings, notouts, runs, average );
 	}
+//	public int hashCode() {
+//		return Objects.hash(name,countryId,matches, innings, notouts, runs, average );
+//	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -64,7 +57,7 @@ public class Player implements Comparable<Player> {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		return Objects.equals(name,  other.name) && Objects.equals(country, other.country) &&
+		return Objects.equals(name,  other.name) && Objects.equals(countryId, other.countryId) &&
 				Objects.equals(matches, other.matches) && Objects.equals(innings, other.innings)
 				 && Objects.equals(notouts, other.notouts) && Objects.equals(runs, other.runs)
 				 && Objects.equals(average, other.average);
@@ -73,15 +66,15 @@ public class Player implements Comparable<Player> {
 	}
 
 	
-	public Player(PlayerEntity be) {
-		this(be.getId().getName(),
-				new Country(be.getCountry()),
-				be.getMatches(),
-				be.getInnings(),
-				be.getNotouts(),
-				be.getRuns(),
-				be.getAverage(),
-				be.getStrikerate());
+	public Player(PlayerEntity pe) {
+		this(pe.getId().getName(),
+				pe.getId().getCountryId(),
+				pe.getMatches(),
+				pe.getInnings(),
+				pe.getNotouts(),
+				pe.getRuns(),
+				pe.getAverage(),
+				pe.getStrikerate());
 	}
 
 
@@ -134,12 +127,14 @@ public class Player implements Comparable<Player> {
 		this.strikeRate = strikeRate;
 	}
 
-	@Override
-	public int compareTo(Player o) {
-		return Comparator.comparing(Player::getName)
-				.thenComparing(b-> b.getCountry().compareTo(o.getCountry()))
-				.compare(this, o);
-	}
+//	@Override
+//	public int compareTo(Player o) {
+//		return Comparator.comparing(Player::getName)
+//				.thenComparing(b-> b.getCountry().compareTo(o.getCountry()))
+//				.compare(this, o);
+//	}
+	
+	
 
 
 }

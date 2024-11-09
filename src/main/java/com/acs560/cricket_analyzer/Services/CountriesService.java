@@ -13,11 +13,11 @@ public interface CountriesService {
 
 	List<Country> getCountries();
 	
-	Optional<Country> getCountry(int id);
+	Optional<Country> getCountry(Long id);
 	
 	Country addCountry(@Valid CountryRequest c);
-	Country updateCountry(int id, CountryRequest c);
-	boolean deleteCountry(int id);
+	Country updateCountry(Long id, CountryRequest c);
+	boolean deleteCountry(Long id);
 
 	
 	

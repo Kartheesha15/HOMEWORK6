@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class Country implements Comparable<Country> {
-	private int id;
+	private Long id;
 	private String team;
 	
 	public Country(CountryEntity ce) {
@@ -25,5 +25,7 @@ public class Country implements Comparable<Country> {
 	public int compareTo(Country o) {
 		return team.compareTo(o.team);
 	}
+	
+	
 
 }

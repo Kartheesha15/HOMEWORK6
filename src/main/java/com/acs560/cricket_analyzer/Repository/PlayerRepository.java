@@ -73,37 +73,22 @@ public class PlayerRepository {
 package com.acs560.cricket_analyzer.Repository;
 
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
+
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.acs560.cricket_analyzer.Exception.PlayerRepositoryManagementException;
 import com.acs560.cricket_analyzer.entities.PlayerEntity;
 import com.acs560.cricket_analyzer.entities.PlayerEntityId;
-import com.acs560.cricket_analyzer.model.Player;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import com.opencsv.exceptions.CsvValidationException;
+
 
 public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEntityId> {
 
-	List<PlayerEntity> findAllByIdCountryId(int countryId);
+	List<PlayerEntity> findAllByIdCountryId(Long countryId);
 	
-	List<PlayerEntity> findAllByIdCountryIdAndNotouts(int countryId,int notouts);
+	List<PlayerEntity> findAllByIdCountryIdAndNotouts(Long countryId, int notouts);
 	
 //	List<PlayerEntity> findAllByIdTeam(String team);
 	@Query(value = """
@@ -114,7 +99,7 @@ public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEnt
 	@Query(value = """
 			SELECT AVG(runs) FROM players WHERE matches = ?8 AND country_id = ?2
 			""", nativeQuery=true)
-	Double calculateAverage(int matches, int countryId);
+	Double calculateAverage(int matches, Long countryId);
 	
 	@Query(value = """
 			SELECT AVG(runs) FROM players WHERE matches in ?8
@@ -124,7 +109,7 @@ public interface PlayerRepository extends CrudRepository<PlayerEntity, PlayerEnt
 	@Query(value = """
 			SELECT AVG(runs) FROM players WHERE matches in ?8 AND country_id = ?2
 			""", nativeQuery=true)
-	Double calculateAverage(Set<Integer> matches, int countryId);
+	Double calculateAverage(Set<Integer> matches, Long countryId);
 
 	
 //	List<PlayerEntity> findAllByIdNameAndIdRuns(String name, Set<Integer> runs);

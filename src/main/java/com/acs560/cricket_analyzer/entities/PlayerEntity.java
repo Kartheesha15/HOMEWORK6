@@ -2,6 +2,8 @@ package com.acs560.cricket_analyzer.entities;
 
 
 import com.acs560.cricket_analyzer.model.Player;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity()
-@Table(name = "playersdata")  // Updated to reflect "players" table
+@Table(name = "playersdata") 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,15 +24,22 @@ public class PlayerEntity {
 
     @EmbeddedId
     private PlayerEntityId id;
+    
     @ManyToOne
     @MapsId("countryId")
     private CountryEntity country;
-
+    
+    @Column
     private int matches;
+    @Column
     private int innings;
+    @Column
     private int notouts;
+    @Column
     private int runs;
+    @Column
     private double average;
+    @Column
     private double strikerate;
 
     // Getter for ID
@@ -39,23 +48,27 @@ public class PlayerEntity {
     }
 
     // Constructor to map from Player model to PlayerEntity
+//    public PlayerEntity(Player player) {
+//        this(new PlayerEntityId(player.getName(), 
+//        		player.getCountry().getId()),
+//        		new CountryEntity(player.getCountry()),
+//        		player.getMatches(),
+//        		player.getInnings(),
+//        		player.getNotouts(),
+//        		player.getRuns(),
+//        		player.getAverage(),
+//        		player.getStrikeRate());
+//
+//    }
+    
     public PlayerEntity(Player player) {
-        this(new PlayerEntityId(player.getName(), 
-        		player.getCountry().getId()),
-        		new CountryEntity(player.getCountry()),
-        		player.getMatches(),
-        		player.getInnings(),
-        		player.getNotouts(),
-        		player.getRuns(),
-        		player.getAverage(),
-        		player.getStrikeRate());
-/*        this.matches = player.getMatches();
+        this.id = new PlayerEntityId(player.getName(), player.getCountryId());
+        this.matches = player.getMatches();
         this.innings = player.getInnings();
         this.notouts = player.getNotouts();
         this.runs = player.getRuns();
         this.average = player.getAverage();
         this.strikerate = player.getStrikeRate();
-        */
     }
 }
 

@@ -20,9 +20,10 @@ import com.acs560.cricket_analyzer.model.Player;
 import lombok.NoArgsConstructor;
 
 
+
 @RestController()
 @RequestMapping("/api/v1/players")
-//@NoArgsConstructor
+@NoArgsConstructor
 public class PlayerController {
 
 	
@@ -42,7 +43,7 @@ public class PlayerController {
 	}
 	
 	@GetMapping("/{name}/{id}")
-	public ResponseEntity<Player> getPlayer(@PathVariable String name ,@PathVariable int countryId) {
+	public ResponseEntity<Player> getPlayer(@PathVariable String name ,@PathVariable Long countryId) {
 		
 		Optional<Player> player = playerServices.getPlayers(name, countryId);
 		
@@ -54,12 +55,12 @@ public class PlayerController {
 	
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<List<Player>> getPlayersByCountry(@PathVariable int countryId){
+	public ResponseEntity<List<Player>> getPlayersByCountry(@PathVariable Long countryId){
 		return ResponseEntity.ok(playerServices.getPlayersByCountry(countryId));
 	}
 	
 	@GetMapping("/{id}/{notouts}")
-	public ResponseEntity<List<Player>> getPlayersByCountryAndNotouts(@PathVariable int countryId ,@PathVariable int notouts){
+	public ResponseEntity<List<Player>> getPlayersByCountryAndNotouts(@PathVariable Long countryId ,@PathVariable int notouts){
 		return ResponseEntity.ok(playerServices.getPlayersByCountryAndNotouts(countryId, notouts));
 	}
 	

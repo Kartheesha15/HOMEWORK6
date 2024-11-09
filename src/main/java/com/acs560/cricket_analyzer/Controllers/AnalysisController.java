@@ -104,7 +104,6 @@ public class PlayersController {
     }
 }*/
 
-
 package com.acs560.cricket_analyzer.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +114,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.acs560.cricket_analyzer.Services.AnalysisServices;
 
-import lombok.NoArgsConstructor;
 
 @RestController()
 @RequestMapping("/api/v1/analysis")
@@ -135,11 +133,10 @@ public class AnalysisController {
 	}
 	
 	@GetMapping("/average/{matches}/{id}")
-	public double getAverageStrikeRate(@PathVariable int matches, @PathVariable int companyId) {
+	public double getAverageStrikeRate(@PathVariable int matches, @PathVariable Long companyId) {
 		return analysisServices.calculateAverageRuns(matches, companyId);
 	}
 	
-
 	
 //	@GetMapping("/average/Compare/{team1}/{team2}")
 //	public String getCompareRuns(@PathVariable String team1, @PathVariable String team2) {

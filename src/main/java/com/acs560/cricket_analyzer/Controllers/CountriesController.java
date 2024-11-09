@@ -37,7 +37,7 @@ public class CountriesController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Country> getCountry(@PathVariable int id){
+	public ResponseEntity<Country> getCountry(@PathVariable Long id){
 		var country = cs.getCountry(id);
 		
 		return country.isPresent() ? 
@@ -52,7 +52,7 @@ public class CountriesController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Country> addCountry(@PathVariable int id,
+	public ResponseEntity<Country> addCountry(@PathVariable Long id,
 			@Valid @RequestBody CountryRequest c){
 
 			cs.updateCountry(id, c);
@@ -61,7 +61,7 @@ public class CountriesController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Country> deleteCountry(@PathVariable int id){
+	public ResponseEntity<Country> deleteCountry(@PathVariable Long id){
 		cs.deleteCountry(id);
 		
 		return ResponseEntity.ok().build();

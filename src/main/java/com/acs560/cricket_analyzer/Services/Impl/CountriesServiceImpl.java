@@ -32,7 +32,7 @@ private CountriesRepository cr;
 	}
 
 	@Override
-	public Optional<Country> getCountry(int id) {
+	public Optional<Country> getCountry(Long id) {
 		var ce = cr.findById(id);
 		Optional<Country> company = 
 				ce.isPresent() ? Optional.of(new Country(ce.get())) : Optional.empty();
@@ -50,7 +50,7 @@ private CountriesRepository cr;
 	}
 
 	@Override
-	public Country updateCountry(int id, CountryRequest c) {
+	public Country updateCountry(Long id, CountryRequest c) {
 		Country updatedCountry = null;
 		
 		if (cr.existsById(id)) {
@@ -62,7 +62,7 @@ private CountriesRepository cr;
 	}
 
 	@Override
-	public boolean deleteCountry(int id) {
+	public boolean deleteCountry(Long id) {
 		boolean isDeleted = false;
 		
 		if (cr.existsById(id)) {

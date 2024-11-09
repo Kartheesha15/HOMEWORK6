@@ -9,7 +9,7 @@ public interface AnalysisServices {
 	
 	double calculateAverage(int matches);
 	
-	double calculateAverageRuns(int matches, int companyId);
+	double calculateAverageRuns(int matches, Long companyId);
 	
 //	double calculateAverageStrikeRate(int companyId);
 

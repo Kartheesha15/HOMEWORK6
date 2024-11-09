@@ -1,8 +1,5 @@
-
-
 package com.acs560.cricket_analyzer.Services.Impl;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.acs560.cricket_analyzer.Repository.PlayerRepository;
 import com.acs560.cricket_analyzer.Services.AnalysisServices;
-import com.acs560.cricket_analyzer.Services.PlayerServices;
-import com.acs560.cricket_analyzer.model.Player;
-
-
 
 
 @Service
@@ -41,7 +34,7 @@ public class AnalysisServicesImpl implements AnalysisServices {
 
 	}
 	
-	public double calculateAverageRuns(int matches, int companyId) {
+	public double calculateAverageRuns(int matches, Long companyId) {
 		var average = br.calculateAverage(matches, companyId);
 		
 		if (average == null) {

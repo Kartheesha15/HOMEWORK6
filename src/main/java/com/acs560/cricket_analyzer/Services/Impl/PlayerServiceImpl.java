@@ -1,19 +1,13 @@
-
-
 package com.acs560.cricket_analyzer.Services.Impl;
 
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Collections;
+
 
 import com.acs560.cricket_analyzer.Repository.PlayerRepository;
 import com.acs560.cricket_analyzer.Services.PlayerServices;
@@ -34,7 +28,7 @@ public class PlayerServiceImpl implements PlayerServices {
 	}
 
 	@Override
-	public Optional<Player> getPlayers(String name, int companyId) {
+	public Optional<Player> getPlayers(String name, Long companyId) {
 		PlayerEntityId id = new PlayerEntityId(name, companyId);
 		var be = br.findById(id);
 		Optional<Player> result = be.isPresent() ? Optional.of(new Player(be.get())) : Optional.empty(); 
@@ -49,13 +43,13 @@ public class PlayerServiceImpl implements PlayerServices {
 	}
 
 	@Override
-	public List<Player> getPlayersByCountry(int countryId) {
+	public List<Player> getPlayersByCountry(Long countryId) {
 		var playerEntities = br.findAllByIdCountryId(countryId);
 		return from(playerEntities);
 	}
 	
 	@Override
-	public List<Player> getPlayersByCountryAndNotouts(int countryId, int notouts) {
+	public List<Player> getPlayersByCountryAndNotouts(Long countryId, int notouts) {
 		var playerEntities = br.findAllByIdCountryIdAndNotouts(countryId, notouts);
 		return from(playerEntities);
 	}
@@ -110,7 +104,7 @@ public class PlayerServiceImpl implements PlayerServices {
 			throw new NoSuchElementException();
 		}
 		
-		Collections.sort(players);
+//		Collections.sort(players);
 		
 		return players;
 	}

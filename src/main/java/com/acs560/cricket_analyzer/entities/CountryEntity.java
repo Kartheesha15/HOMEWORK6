@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "companies")
+@Table(name = "country")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,9 +26,9 @@ import lombok.ToString;
 public class CountryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
-	@Column(unique=true)
+	@Column(name = "team")
 	private String team;
 	
 	public CountryEntity (CountryRequest c) {
