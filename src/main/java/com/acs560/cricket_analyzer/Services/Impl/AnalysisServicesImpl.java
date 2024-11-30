@@ -12,8 +12,7 @@ import com.acs560.cricket_analyzer.Services.AnalysisServices;
 @Service
 public class AnalysisServicesImpl implements AnalysisServices {
 
-//	@Autowired
-	private PlayerRepository br;
+	private final PlayerRepository br;
 	
 	@Autowired
 	public AnalysisServicesImpl(PlayerRepository br) {
